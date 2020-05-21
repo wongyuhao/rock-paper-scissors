@@ -3,91 +3,36 @@
 
 <head>
     <title>rock paper scissors</title>
+    <link href="styles.css" type="text/css" rel ="stylesheet">
+   
 </head>
 <body>
+    <h1>Rock Paper Scissors</h1>
+    <div id="stats">
+        <p id="rounds">0/5 rounds</p>
+        <p id="running-score">player wins:  0 // computer wins: 0</p>
+        
+        <p id="log"></p>
+        <p id="match">[PLAYER]          vs.             [COMPUTER]</p>
+        <p id= "wl"> </p>
 
-<script>
+       
+       
+        
+    </div>
+    <div class= "buttons">
+        <input type="button" class= "clickme" id="btn-rock" value="rock">
+        <input type="button" class= "clickme" id="btn-paper" value="paper">
+        <input type="button" class= "clickme" id="btn-scissors" value ="scissors">
+    </div>
 
+    <div id="resultslog">Results:</div> 
 
-let playerWins=0;
-function computerPlay(){
-    switch(Math.floor(Math.random()*2)){
-        case 0: return "rock" ;break;
-        case 1: return "paper";break;
-        case 2: return "scissors";break;
-    }
-
-function play(playerChoice, computerChoice){
-
-    if(playerChoice!="rock"||playerChoice!="paper"||playerChoice!="scissors"){
-        return 2;
-    }
-    playerWin= false;
-    
-    let msg = `[PLAYER] ${playerChoice} vs. ${computerChoice} [COMPUTER]`
-    console.log(msg);
-    if(playerChoice==computerChoice){
-        return 2;
-    }
-
-    if (computerChoice=="rock"){
-        if(playerChoice=="paper"){
-        playerWin=true;
-        }
-    }
-
-    if(computerChoice=="paper"){
-        if(playerChoice=="scissors"){
-            playerWin=true;
-        }
-    }
-
-    if(computerChoice=="scissors"){
-        if(playerChoice =="rock"){
-            playerWin=true;
-        }
-    }
-
-    if(playerWin){
-        console.log("YOU WIN") 
-        return 0;
-    }else{console.log("YOU LOSE")
-    return 1;}
-
-}
-
-function round(){
-    
-    const pChoice = prompt("enter choice (rock/paper/scissors)");
-    const cChoice = computerPlay();
-
-    switch(play(pChoice,cChoice)){
-        case 0: playerWins++; break;
-        case 1: break;
-        case 2: round();
-    };
-}
-
-function game(){
-    for(i=0;i<5;i++){
-        round();
-    }
-
-    if(playerWins>=3){
-        console.log("PLAYER WINS");
-    }else{
-        console.log("COMPUTER WINS");
-    }
-}
-
-function testcall(){
-    let msg = prompt("hello");
-    console.log(msg);
-}
-}
-
-
-
-</script>
+    <script  src="script.js">
+        
+    </script>
 </body>
+
+
+    
 </html>

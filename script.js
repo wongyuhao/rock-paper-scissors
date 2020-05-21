@@ -1,22 +1,83 @@
 
-
+window.onload= function(){
+let round =0;
 let playerWins=0;
-function computerPlay(){
-    switch(Math.floor(Math.random()*2)){
-        case 0: return "rock" ;break;
-        case 1: return "paper";break;
-        case 2: return "scissors";break;
+let computerWins =0;
+
+
+const buttons = Array.from(document.querySelectorAll(".clickme"))
+const resultslog = document.querySelector("#resultslog");
+const rounds = document.querySelector("#rounds");
+const score = document.querySelector("#running-score");
+const wl = document.querySelector("#wl");
+
+buttons.forEach(button => 
+    button.addEventListener('click',function(e){
+        let pChoice = e.target.value;
+        console.log(`player chose ${pChoice}`);
+        let cChoice = computerPlay();
+        
+        play(pChoice,cChoice);
+        }
+    )
+    
+)
+
+function updateScreen(result){
+    
+
+    score.textContent= `player wins:   ${playerWins} // computer wins: ${computerWins}`;
+    rounds.textContent=`${round}/5 rounds.`;
+    
+
+
+    
+    if(round>=5){
+        if(playerWins>=3){
+            alert("YOU WON THE GAME");
+        }else{
+            alert("YOU LOST THE GAME");
+        }
+        resetGame();
+        updateScreen();
     }
+    
+}
+
+function resetGame(){
+    round=0;
+    playerWins=0;
+    computerWins=0;
+    wl.textContent="";
+    document.getElementById('resultslog').innerHTML = 'Results:';
+
+    
+}
+
+function computerPlay(){
+    let num = Math.floor(Math.random()*3);
+    let selection =""
+    if(num===0){
+        selection = "rock";
+    }else if(num ===1){
+        selection = "paper";
+    }else if(num ===2){
+        selection = "scissors";
+    }
+
+    console.log(`computer chose ${selection}`);
+    return selection
+}
 
 function play(playerChoice, computerChoice){
-
-    if(playerChoice!="rock"||playerChoice!="paper"||playerChoice!="scissors"){
-        return 2;
-    }
+    console.log("play() is called")
+   while(playerChoice===computerChoice){
+       console.log("tie! rerolling");
+        computerChoice=computerPlay();
+   }
     playerWin= false;
-    
-    let msg = `[PLAYER] ${playerChoice} vs. ${computerChoice} [COMPUTER]`
-    console.log(msg);
+   round++;
+    match.textContent=`[PLAYER] ${playerChoice} vs. ${computerChoice} [COMPUTER]`;
     if(playerChoice==computerChoice){
         return 2;
     }
@@ -40,41 +101,38 @@ function play(playerChoice, computerChoice){
     }
 
     if(playerWin){
-        console.log("YOU WIN") 
-        return 0;
-    }else{console.log("YOU LOSE")
-    return 1;}
-
-}
-
-function round(){
-    
-    const pChoice = prompt("enter choice (rock/paper/scissors)");
-    const cChoice = computerPlay();
-
-    switch(play(pChoice,cChoice)){
-        case 0: playerWins++; break;
-        case 1: break;
-        case 2: round();
-    };
-}
-
-function game(){
-    for(i=0;i<5;i++){
-        round();
-    }
-
-    if(playerWins>=3){
-        console.log("PLAYER WINS");
+        updateLog(playerWin);
+        playerWins++;
+        
+        
+        
     }else{
-        console.log("COMPUTER WINS");
+        updateLog(playerWin);
+        computerWins++;
+      
     }
+
+    updateScreen(playerWin);
+
+    
+
+    
 }
 
-function testcall(){
-    let msg = prompt("hello");
-    console.log(msg);
+function updateLog(result){
+    const child = document.createElement("p");
+    if(result){
+        child.textContent=`${round}. Player Wins`
+    }else{
+        child.textContent=`${round}. Computer Wins`
+    }
+    resultslog.appendChild(child);
 }
+
+
+
+
+
 }
 
 
