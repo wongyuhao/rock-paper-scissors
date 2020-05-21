@@ -24,7 +24,7 @@ buttons.forEach(button =>
 )
 
 function updateScreen(result){
-    
+    updateLog(playerWin);
 
     score.textContent= `player wins:   ${playerWins} // computer wins: ${computerWins}`;
     rounds.textContent=`${round}/5 rounds.`;
@@ -48,6 +48,7 @@ function resetGame(){
     round=0;
     playerWins=0;
     computerWins=0;
+    match.textContent=""
     wl.textContent="";
     document.getElementById('resultslog').innerHTML = 'Results:';
 
@@ -77,7 +78,7 @@ function play(playerChoice, computerChoice){
    }
     playerWin= false;
    round++;
-    match.textContent=`[PLAYER] ${playerChoice} vs. ${computerChoice} [COMPUTER]`;
+    match.textContent=`${playerChoice} vs. ${computerChoice}`;
     if(playerChoice==computerChoice){
         return 2;
     }
@@ -101,13 +102,13 @@ function play(playerChoice, computerChoice){
     }
 
     if(playerWin){
-        updateLog(playerWin);
+        
         playerWins++;
         
         
         
     }else{
-        updateLog(playerWin);
+       
         computerWins++;
       
     }
@@ -120,10 +121,15 @@ function play(playerChoice, computerChoice){
 }
 
 function updateLog(result){
+    if(round ===0){
+        return;
+    }
     const child = document.createElement("p");
     if(result){
+        wl.textContent="YOU BEAT COMPUTER"
         child.textContent=`${round}. Player Wins`
     }else{
+        wl.textContent="COMPUTER BEAT YOU"
         child.textContent=`${round}. Computer Wins`
     }
     resultslog.appendChild(child);
